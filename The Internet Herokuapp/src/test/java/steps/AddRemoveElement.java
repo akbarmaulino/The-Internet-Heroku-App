@@ -1,5 +1,6 @@
 package steps;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -24,7 +25,16 @@ public class AddRemoveElement {
     }
     @Then("Element Success To Add")
     public void element_success_to_add() {
-        System.out.println("Add Button Success To Add");
+        addremovepages.SuccessAddButton();
+    }
+
+    @And("User Click Delete Element")
+    public void user_click_delete_element() {
+        addremovepages.clickDeleteButton();
+    }
+    @Then("Element Success To Delete")
+    public void element_success_to_delete() {
+        addremovepages.successDeleteButton();
     }
 
 }
