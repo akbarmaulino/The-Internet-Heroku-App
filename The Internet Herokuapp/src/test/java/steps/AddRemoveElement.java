@@ -8,13 +8,12 @@ import org.openqa.selenium.WebDriver;
 import pages.AddRemoveElementPages;
 
 public class AddRemoveElement {
-    private WebDriver driver;
     private AddRemoveElementPages addremovepages;
 
 
     @Given("User Already in Pages")
     public void user_already_in_pages() {
-        driver = hooks.getDriver();
+        WebDriver driver = hooks.getDriver();
         addremovepages = new AddRemoveElementPages(driver);
         addremovepages.addremovebuttonisdisplayed();
         addremovepages.clickaddremovebutton();
