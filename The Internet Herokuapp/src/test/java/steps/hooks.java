@@ -17,7 +17,7 @@ public class hooks {
     private static WebDriver driver;
 
     @Before
-    public void setUp() {
+    public void setUp(Scenario scenario) {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--start-fullscreen");
@@ -32,7 +32,23 @@ public class hooks {
         options.addArguments("--disable-features=VizDisplayCompositor");
         System.setProperty("webdriver.chrome.driver", "D:\\Aplikasi Donwload\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe");
         driver = new ChromeDriver(options);
-        driver.get("https://the-internet.herokuapp.com/");
+        if (scenario.getSourceTagNames().contains("@basicAuth")) {
+            // Handle URL with Basic Auth
+            String username = "admin";
+            String password = "admin";
+            String url = "https://the-internet.herokuapp.com/basic_auth";
+            String basicAuthUrl = "https://" + username + ":" + password + "@" + url.substring(8);
+            driver.get(basicAuthUrl);
+        } else if (scenario.getSourceTagNames().contains("@DigestAuth")) {
+            String username = "admin";
+            String password = "admin";
+            String url = "https://the-internet.herokuapp.com/digest_auth";
+            String digestAuthurl = "https://" + username + ":" + password + "@" + url.substring(8);
+            driver.get(digestAuthurl);
+        } else {
+            // Handle default URL
+            driver.get("https://the-internet.herokuapp.com/");
+        }
     }
 
     @After
